@@ -8,7 +8,6 @@ public class EnnemyMovements : MonoBehaviour
     public float moveSpeed = 2f;
     void Start(){
         if (player == null) {
-            Debug.LogError("Player found");
             player = GameObject.FindWithTag("Player").transform;
             if (player == null) {
                 Debug.LogError("Player not found! Assign a Transform in the Inspector.");
