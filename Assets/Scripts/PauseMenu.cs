@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;  
 
 public class PauseMenu : MonoBehaviour
 {
@@ -11,21 +12,21 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    void Update()
-    {
-        // Vérifiez si la touche Échap est pressée
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-    }
+    // void Update()
+    // {
+    //     // Vérifiez si la touche Échap est pressée
+    //     if (Input.GetKeyDown(KeyCode.Escape))
+    //     {
+    //         if (isPaused)
+    //         {
+    //             Resume();
+    //         }
+    //         else
+    //         {
+    //             Pause();
+    //         }
+    //     }
+    // }
 
     void Pause()
     {
@@ -48,5 +49,9 @@ public class PauseMenu : MonoBehaviour
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
+    }
+    public void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

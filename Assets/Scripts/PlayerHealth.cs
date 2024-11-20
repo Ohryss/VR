@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        deathMenu.SetActive(false);
     }
 
     public void TakeDamage(int damage)
@@ -38,5 +39,15 @@ public void IncreaseMaxHealth(int amount)
     {
         Debug.Log("Player has died.");
         Destroy(gameObject);
+        playerDeath();
+    }
+
+    public GameObject deathMenu;
+    public bool isDead;
+
+    public void playerDeath() {
+        deathMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isDead = true;
     }
 }
