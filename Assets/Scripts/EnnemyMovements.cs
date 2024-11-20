@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class EnnemyMovements : MonoBehaviour
 {
-    private Transform player;
+    [SerializeField] private Transform player; // Assign in Inspector
     public float moveSpeed = 2f;
     void Start(){
-        player = GameObject.Find("Player").transform;
+        if (player == null) {
+            Debug.LogError("Player found");
+            player = GameObject.FindWithTag("Player").transform;
+            if (player == null) {
+                Debug.LogError("Player not found! Assign a Transform in the Inspector.");
+            }
+        }
     }
 
-    // Update is called once per frame
     void Update(){
-        FollowAndLookPlayer();
+        if (player != null) {
+            FollowAndLookPlayer();
+        }
     }
 
     void FollowAndLookPlayer(){
-     // Calculate the direction towards the player
+        // Calculate the direction towards the player
         Vector3 direction = (player.position - transform.position).normalized;
-        
+
         // Move the enemy towards the player
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         // Rotate the enemy to look at the player
-        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));   
+        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
     }
 }
