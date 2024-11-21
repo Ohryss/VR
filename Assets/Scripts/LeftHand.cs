@@ -7,11 +7,13 @@ public class LeftHand : MonoBehaviour
 {
     public XRNode controllerNode = XRNode.LeftHand; // Définit la main gauche
     public float horizontalSpeedThreshold = 0.5f; // Sensibilité du mouvement
-
     private Vector3 controllerVelocity;
 
     public GameObject magicSpherePrefab; // Référence au prefab de la sphère magique
     public Transform spawnPoint; // Point d'apparition de la sphère (peut être la position de la main)
+
+    public float cooldownTime = 2f; // Temps de recharge entre les tirs
+    private float lastCastTime = -Mathf.Infinity; // Temps du dernier tir
 
     void Update()
     {
@@ -32,7 +34,16 @@ public class LeftHand : MonoBehaviour
         if (horizontalSpeed > horizontalSpeedThreshold)
         {
             Debug.Log("Quick horizontal movement detected!");
-            CastMagic();
+            // Vérifier le cooldown avant de lancer la magie
+            if (Time.time >= lastCastTime + cooldownTime)
+            {
+                CastMagic();
+                lastCastTime = Time.time; // Met à jour le temps du dernier tir
+            }
+            else
+            {
+                Debug.Log("Cooldown in progress, cannot cast yet.");
+            }
         }
     }
 
@@ -49,6 +60,8 @@ public class LeftHand : MonoBehaviour
             {
                 rb.AddForce(spawnPoint.forward * 10f, ForceMode.Impulse); // Ajustez la force selon vos besoins
             }
+
+            Debug.Log("Magic sphere cast!");
         }
     }
 }

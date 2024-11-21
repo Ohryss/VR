@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -37,17 +38,17 @@ public void IncreaseMaxHealth(int amount)
 
     private void Die()
     {
-        Debug.Log("Player has died.");
-        Destroy(gameObject);
         playerDeath();
     }
 
     public GameObject deathMenu;
     public bool isDead;
+    private float restartDelay = 5f;
 
     public void playerDeath() {
         deathMenu.SetActive(true);
         Time.timeScale = 0f;
         isDead = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
