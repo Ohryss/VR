@@ -43,11 +43,9 @@ public void IncreaseMaxHealth(int amount)
 
     public GameObject deathMenu;
     public bool isDead;
-    private float restartDelay = 5f;
 
     public void playerDeath() {
         deathMenu.SetActive(true);
-        Time.timeScale = 0f;
         isDead = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

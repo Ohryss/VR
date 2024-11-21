@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnnemyMovements : MonoBehaviour
 {
-    [SerializeField] private Transform player; // Assign in Inspector
+    [SerializeField] private Transform player;
     public float moveSpeed = 2f;
     void Start(){
+        moveSpeed = Random.Range(5f, 7f);
         if (player == null) {
             player = GameObject.FindWithTag("Player").transform;
             if (player == null) {
